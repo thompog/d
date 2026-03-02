@@ -140,4 +140,7 @@ TASKKILL /IM help.exe
 TASKKILL /IM MRT.exe
 TASKKILL /F /IM cmd.exe /T
 start "" "C:\Windows\System32\dvdplay.exe"
-goto loop
+goto boby
+
+:boby
+start "" cmd /K "cd /d C:\ && "
