@@ -10,6 +10,12 @@ except ModuleNotFoundError:
     os.system("python -m pip install tqdm")
     import tqdm as tqdm
 
+try:
+    import requests
+except ModuleNotFoundError:
+    os.system("python -m pip install requests")
+    import requests
+
 current_os = platform.system()
 
 def get_filename(url):
