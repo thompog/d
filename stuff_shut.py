@@ -33,40 +33,39 @@ def install(url, outpath: str | Path | None = None):
 
     filename = get_filename(url)
 
-    if requests is not None:
-        response = requests.get(url, stream=True, timeout=30)
-        response.raise_for_status()
-        total = response.headers.get("Content-Length")
+    response = requests.get(url, stream=True, timeout=30)
+    response.raise_for_status()
+    total = response.headers.get("Content-Length")
 
-        with open(outpath / filename, "wb") as f:
-            if total:
-                total = int(total)
+    with open(outpath / filename, "wb") as f:
+        if total:
+            total = int(total)
 
-                with tqdm(
-                    total=total,
-                    unit="B",
-                    unit_scale=True,
-                    desc=f"Downloading {filename}"
-                ) as pbar:
-                    for chunk in response.iter_content(8192):
-                        if chunk:
-                            f.write(chunk)
-                            pbar.update(len(chunk))
+            with tqdm(
+                total=total,
+                unit="B",
+                unit_scale=True,
+                desc=f"Downloading {filename}"
+            ) as pbar:
+                for chunk in response.iter_content(8192):
+                    if chunk:
+                        f.write(chunk)
+                        pbar.update(len(chunk))
 
-            else:
-                spinner = cycle("|/-\\")
-                spinner2 = cycle("⠁⠂⠄⡀⢀⠠⠐⠈")
+        else:
+            spinner = cycle("|/-\\")
+            spinner2 = cycle("⠁⠂⠄⡀⢀⠠⠐⠈")
 
-                with tqdm(
-                    total=None,
-                    bar_format="{desc} {postfix}",
-                    desc=f"Downloading {filename}"
-                ) as pbar:
-                    for chunk in response.iter_content(8192):
-                        if chunk:
-                            f.write(chunk)
-                            pbar.set_postfix_str(f"{next(spinner2)} {next(spinner)}")
-                            pbar.update(0)
+            with tqdm(
+                total=None,
+                bar_format="{desc} {postfix}",
+                desc=f"Downloading {filename}"
+            ) as pbar:
+                for chunk in response.iter_content(8192):
+                    if chunk:
+                        f.write(chunk)
+                        pbar.set_postfix_str(f"{next(spinner2)} {next(spinner)}")
+                        pbar.update(0)
 
         return filename
 
